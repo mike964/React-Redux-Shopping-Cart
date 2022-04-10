@@ -1,3 +1,12 @@
 
 2022-10-4
+
+# TODOS 
+-----------------------------
+Clone a React redux shopping cart and develop it to be like amazon. use Redux offical shopping cart example.
+
+
+
+# BRANCHES 
+----------------------------
 Branch 'b-1' holds the original code
