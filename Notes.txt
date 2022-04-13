@@ -4,7 +4,8 @@
 # TODOS 
 -----------------------------
 Clone a React redux shopping cart and develop it to be like amazon. use Redux offical shopping cart example.
-
+Convert all components to functional 
+Fix React Router
 
 
 # BRANCHES 

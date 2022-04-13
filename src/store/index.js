@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import cartReducer from '../components/reducers/cartReducer'
+import cartReducer from './reducers/cartReducer'
 import logger from './middleware.js/logger'
 
 const rootReducer = combineReducers({
