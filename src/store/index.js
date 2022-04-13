@@ -10,8 +10,8 @@ const rootReducer = combineReducers({
 })
 
 const store = configureStore({
-	reducer: rootReducer,
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
+	reducer: cartReducer,
+	// middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
 	// middleware: [
 	// ...getDefaultMiddleware(),
 	// logger( { destination: "console" } ),

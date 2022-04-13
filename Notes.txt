@@ -10,3 +10,8 @@ Clone a React redux shopping cart and develop it to be like amazon. use Redux of
 # BRANCHES 
 ----------------------------
 Branch 'b-1' holds the original code
+
+
+
+# NOTES 
+-----------------------------------
