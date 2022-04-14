@@ -42,32 +42,28 @@ const Cart = () => {
 							<b>Quantity: {item.count}</b>
 						</p>
 						<div className='add-remove'>
-							<Link to='/cart'>
-								<i
-									className='material-icons'
-									onClick={() => {
-										handleAddQuantity(item.id)
-									}}>
-									arrow_drop_up
-								</i>
-							</Link>
-							<Link to='/cart'>
-								<i
-									className='material-icons'
-									onClick={() => {
-										handleSubtractQuantity(item.id)
-									}}>
-									arrow_drop_down
-								</i>
-							</Link>
+							<i
+								className='material-icons'
+								onClick={() => {
+									handleAddQuantity(item.id)
+								}}>
+								arrow_drop_up
+							</i>
+							<i
+								className='material-icons'
+								onClick={() => {
+									handleSubtractQuantity(item.id)
+								}}>
+								arrow_drop_down
+							</i>
+							<span
+								className='remove'
+								onClick={() => {
+									handleRemove(item.id)
+								}}>
+								remove
+							</span>
 						</div>
-						<button
-							className='waves-effect waves-light btn pink remove'
-							onClick={() => {
-								handleRemove(item.id)
-							}}>
-							Remove
-						</button>
 					</div>
 				</li>
 			)
