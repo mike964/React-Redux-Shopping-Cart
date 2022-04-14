@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
 	removeItem,
@@ -9,22 +9,23 @@ import {
 import Recipe from './Recipe'
 
 const Cart = () => {
-	const { addedItems, total } = useSelector(state => state)
+	const dispatch = useDispatch()
+	const { cartItems, total } = useSelector(state => state)
 	//to remove the item completely
 	const handleRemove = id => {
-		this.props.removeItem(id)
+		dispatch(removeItem(id))
 	}
 	//to add the quantity
 	const handleAddQuantity = id => {
-		this.props.addQuantity(id)
+		dispatch(addQuantity(id))
 	}
 	//to substruct from the quantity
 	const handleSubtractQuantity = id => {
-		this.props.subtractQuantity(id)
+		dispatch(subtractQuantity(id))
 	}
 
-	let renderItems = addedItems.length ? (
-		addedItems.map(item => {
+	let renderItems = cartItems.length ? (
+		cartItems.map(item => {
 			return (
 				<li className='collection-item avatar' key={item.id}>
 					<div className='item-img'>
@@ -38,14 +39,14 @@ const Cart = () => {
 							<b>Price: {item.price}$</b>
 						</p>
 						<p>
-							<b>Quantity: {item.quantity}</b>
+							<b>Quantity: {item.count}</b>
 						</p>
 						<div className='add-remove'>
 							<Link to='/cart'>
 								<i
 									className='material-icons'
 									onClick={() => {
-										this.handleAddQuantity(item.id)
+										handleAddQuantity(item.id)
 									}}>
 									arrow_drop_up
 								</i>
@@ -54,7 +55,7 @@ const Cart = () => {
 								<i
 									className='material-icons'
 									onClick={() => {
-										this.handleSubtractQuantity(item.id)
+										handleSubtractQuantity(item.id)
 									}}>
 									arrow_drop_down
 								</i>
@@ -63,7 +64,7 @@ const Cart = () => {
 						<button
 							className='waves-effect waves-light btn pink remove'
 							onClick={() => {
-								this.handleRemove(item.id)
+								handleRemove(item.id)
 							}}>
 							Remove
 						</button>
@@ -81,7 +82,7 @@ const Cart = () => {
 				<h5>You have ordered:</h5>
 				<ul className='collection'>{renderItems}</ul>
 			</div>
-			<Recipe total={total} item={addedItems} />
+			<Recipe total={total} item={cartItems} />
 		</div>
 	)
 }
@@ -90,8 +91,8 @@ export default Cart
 
 // const mapStateToProps = state => {
 // 	return {
-// 		items: state.cart.addedItems,
-// 		//addedItems: state.addedItems
+// 		items: state.cart.cartItems,
+// 		//cartItems: state.cartItems
 // 	}
 // }
 // const mapDispatchToProps = dispatch => {

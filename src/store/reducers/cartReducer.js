@@ -7,9 +7,9 @@ import Item6 from '../../images/item6.jpg'
 import {
 	ADD_TO_CART,
 	REMOVE_ITEM,
-	SUB_count,
-	ADD_count,
-	ADD_SHIPPING,
+	SUB_QUANTITY,
+	ADD_QUANTITY,
+	SET_SHIPPING,
 } from '../actions/action-types/cart-actions'
 
 const initState = {
@@ -57,19 +57,21 @@ const initState = {
 			img: Item6,
 		},
 	],
-	addedItems: [],
+	cartItems: [],
+	shipping: false, // express shipping checkbox
 	shippingAddress: '',
 	total: 0,
 }
 
 const cartReducer = (state = initState, action) => {
+	let addedItem = {}
 	switch (action.type) {
 		// * INSIDE HOME COMPONENT
 		case ADD_TO_CART:
-			let addedItem = state.items.find(item => item.id === action.id)
-			//check if the action id exists in the addedItems
+			addedItem = state.items.find(item => item.id === action.id)
+			//check if the action id exists in the cartItems
 			// * If item already exists, just increase count by 1 : update item
-			let item_existed = state.addedItems.find(item => action.id === item.id)
+			let item_existed = state.cartItems.find(item => action.id === item.id)
 
 			let newItem = {
 				...addedItem,
@@ -80,78 +82,69 @@ const cartReducer = (state = initState, action) => {
 				// * If
 				return {
 					...state,
-					addedItems: state.addedItems.map(item =>
+					cartItems: state.cartItems.map(item =>
 						item.id === action.id ? { ...item, count: item.count + 1 } : item
 					),
+					total: state.total + addedItem.price,
 				}
 			} else {
 				return {
 					...state,
-					addedItems: [...state.addedItems, newItem],
+					cartItems: [...state.cartItems, newItem],
 					total: state.total + addedItem.price,
 				}
 			}
-		// }
 
-		// if (action.type === REMOVE_ITEM) {
-		// 	let itemToRemove = state.addedItems.find(item => action.id === item.id)
-		// 	let new_items = state.addedItems.filter(item => action.id !== item.id)
+		case REMOVE_ITEM:
+			let itemToRemove = state.cartItems.find(item => action.id === item.id)
 
-		// 	//calculating the total
-		// 	let newTotal = state.total - itemToRemove.price * itemToRemove.count
-		// 	console.log(itemToRemove)
-		// 	return {
-		// 		...state,
-		// 		addedItems: new_items,
-		// 		total: newTotal,
-		// 	}
-		// }
-		// //INSIDE CART COMPONENT
-		// if (action.type === ADD_count) {
-		// 	let addedItem = state.items.find(item => item.id === action.id)
-		// 	addedItem.count += 1
-		// 	let newTotal = state.total + addedItem.price
-		// 	return {
-		// 		...state,
-		// 		total: newTotal,
-		// 	}
-		// }
-		// if (action.type === SUB_count) {
-		// 	let addedItem = state.items.find(item => item.id === action.id)
-		// 	//if the qt == 0 then it should be removed
-		// 	if (addedItem.count === 1) {
-		// 		let new_items = state.addedItems.filter(item => item.id !== action.id)
-		// 		let newTotal = state.total - addedItem.price
-		// 		return {
-		// 			...state,
-		// 			addedItems: new_items,
-		// 			total: newTotal,
-		// 		}
-		// 	} else {
-		// 		addedItem.count -= 1
-		// 		let newTotal = state.total - addedItem.price
-		// 		return {
-		// 			...state,
-		// 			total: newTotal,
-		// 		}
-		// 	}
-		// }
+			// * Calculate the total
+			let newTotal = state.total - itemToRemove.price * itemToRemove.count
+			// console.log(itemToRemove)
+			return {
+				...state,
+				cartItems: state.cartItems.filter(item => action.id !== item.id),
+				total: newTotal,
+			}
+		//INSIDE CART COMPONENT
+		case ADD_QUANTITY:
+			addedItem = state.cartItems.find(item => item.id === action.id)
+			// addedItem.count += 1
+			return {
+				...state,
+				cartItems: state.cartItems.map(item =>
+					item.id === action.id ? { ...item, count: item.count + 1 } : item
+				),
+				total: state.total + addedItem.price,
+			}
 
-		// if (action.type === ADD_SHIPPING) {
-		// 	return {
-		// 		...state,
-		// 		total: state.total + 6,
-		// 	}
-		// }
+		case SUB_QUANTITY:
+			addedItem = state.cartItems.find(item => item.id === action.id)
+			console.log(addedItem)
+			//if the qt == 0 then it should be removed
+			if (addedItem.count === 1) {
+				return {
+					...state,
+					cartItems: state.cartItems.filter(item => action.id !== item.id),
+					total: state.total - addedItem.price,
+				}
+			} else {
+				// addedItem.count -= 1
+				return {
+					...state,
+					cartItems: state.cartItems.map(item =>
+						item.id === action.id ? { ...item, count: item.count - 1 } : item
+					),
+					total: state.total - addedItem.price,
+				}
+			}
 
-		// if (action.type === 'SUB_SHIPPING') {
-		// 	return {
-		// 		...state,
-		// 		total: state.total - 6,
-		// 	}
-		// } else {
-		// 	return state
-		// }
+		case SET_SHIPPING:
+			return {
+				...state,
+				total: action.payload ? state.total + 6 : state.total - 6,
+				shipping: action.payload,
+			}
 		default:
 			return state
 	}
