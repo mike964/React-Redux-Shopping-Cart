@@ -1,14 +1,9 @@
 // import React, { Component } from 'react'
 // import { connect } from 'react-redux'
-// import { addToCart } from './actions/cartActions'
 import { useSelector } from 'react-redux'
 import ProductItem from './ProductItem'
 
 const Home = () => {
-	// handleClick = id => {
-	// 	this.props.addToCart(id)
-	// }
-
 	const { items } = useSelector(state => state)
 
 	let itemList = items.map(item => <ProductItem key={item.id} item={item} />)

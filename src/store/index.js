@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import cartReducer from './reducers/cartReducer'
-import logger from './middleware.js/logger'
+// import logger from './middleware.js/logger'
 
 const rootReducer = combineReducers({
 	// bugs: bugsReducer,

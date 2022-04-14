@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
 import { useDispatch } from 'react-redux'
 import { toggleShipping } from '../store/actions/cartActions'
 // import { connect } from 'react-redux'
@@ -24,6 +24,7 @@ const Recipe = ({ total, items }) => {
 							type='checkbox'
 							// ref='shipping'
 							onChange={handleChecked}
+							// value
 						/>
 						<span>Express Shipping (+6$)</span>
 					</label>
