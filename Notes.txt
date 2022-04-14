@@ -18,3 +18,5 @@ Branch 'b-1' holds the original code
 
 # NOTES 
 -----------------------------------
+Make git contribution to the real repo
+suggest changing cartReducer to use switch()
