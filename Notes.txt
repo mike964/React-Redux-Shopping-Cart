@@ -7,6 +7,8 @@ Clone a React redux shopping cart and develop it to be like amazon. use Redux of
 Convert all components to functional 
 Fix React Router
 Fix Add_ITEM_TO_CART  , show show as badge in navbar
+Convert cartReducer to switch to fix issue
+
 
 # BRANCHES 
 ----------------------------
