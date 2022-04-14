@@ -6,6 +6,7 @@ const ProductItem = ({ item }) => {
 	const dispatch = useDispatch()
 
 	const handleClick = () => {
+		console.log('- handleclick')
 		dispatch(addToCart(item.id))
 	}
 
